@@ -27,12 +27,6 @@ $colors: (
 	error: #F44336
 );
 
-*, *:after, *:before {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
 .container-alert-message {
 	position: fixed;
 	top: 10px;
@@ -40,6 +34,12 @@ $colors: (
 	z-index: 5000;
 
 	@include display-flex(column, center);
+
+	&, & * , & *:after,& *:before {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 }
 
 .alert-message {

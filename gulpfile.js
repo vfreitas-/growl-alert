@@ -1,0 +1,48 @@
+'use strict';
+
+var gulp = require('gulp')
+  , gutil = require('gulp-util')
+  , prefixer = require('gulp-autoprefixer')
+  , sass = require('gulp-sass')
+  , coffee = require('gulp-coffee')
+  , sourcemaps = require('gulp-sourcemaps')
+  , minifyCSS = require('gulp-minify-css')
+  , gif = require('gulp-if');
+
+
+var paths = {
+	src: {
+		sass: 'src/*.scss',
+		coffee: 'src/*.coffee'
+	},
+	dist: 'dist/'
+};
+
+var minify = (0 <= process.argv.indexOf('--minify'));
+
+gulp.task('default', ['sass', 'coffee'], function() {
+
+});
+
+gulp.task('watch', function() {
+	gulp.watch(paths.src.sass, ['sass']);
+	gulp.watch(paths.src.coffee, ['coffee']);
+});
+
+gulp.task('sass', function() {
+	return gulp.src(paths.src.sass)
+		.pipe(sass().on('error', sass.logError))
+		.pipe(prefixer({
+			browsers: ['last 3 versions', 'IE 10']
+		}))
+		.pipe(gif(minify, minifyCSS() ))
+		.pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('coffee', function() {
+	return gulp.src(paths.src.coffee)
+		.pipe(sourcemaps.init())
+		.pipe(coffee({ bare: true })).on('error', gutil.log)
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(paths.dist));
+});
