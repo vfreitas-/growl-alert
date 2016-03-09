@@ -17,6 +17,20 @@ do (window) ->
 			i++
 		arguments[0]
 
+	setMessage = (param, type) ->
+		if typeof param == 'string'
+			opts =
+				text: param
+				type: type
+			return opts
+		else if param != null && typeof param == 'object'
+			return extend(param, {
+				type: type
+			})
+		else
+			return { type: type }
+
+
 	window.growl = (opts) ->
 
 		$el = undefined
@@ -91,6 +105,18 @@ do (window) ->
 			return
 
 		# return
-		$el
+		return $el
 
-		return
+	window.growl.success = (opts) ->
+		growl(setMessage(opts, 'success'))
+
+	window.growl.error = (opts) ->
+		growl(setMessage(opts, 'error'))
+
+	window.growl.warning = (opts) ->
+		growl(setMessage(opts, 'warning'))
+
+	window.growl.info = (opts) ->
+		growl(setMessage(opts, 'info'))
+
+	window.growl
