@@ -1,5 +1,17 @@
-// BEM selectors
+// Vars
+//=============================================
 
+$colors: (
+	success: #00C853,
+	info: #0091EA,
+	warn: #FFAB00,
+	error: #F44336
+);
+
+// Mixins
+//=============================================
+
+// BEM selectors
 @mixin e($element) {
 
 	&__#{$element} {
@@ -19,13 +31,8 @@
 	justify-content: $justify;
 }
 
-
-$colors: (
-	success: #00C853,
-	info: #0091EA,
-	warn: #FFAB00,
-	error: #F44336
-);
+// Styles
+//=============================================
 
 .container-alert-message {
 	position: fixed;
@@ -172,29 +179,35 @@ $colors: (
 		background-color: map-get($colors, warn);
 
 		& .alert-message__icon {
+			position: relative;
 			opacity: 0;
 			transform: scale(0);
+			height: 30px;
+			border-bottom: 50px solid #FF9800;
+			border-right: 30px solid transparent;
+			border-left: 30px solid transparent;
+
+			&:before,
+			&:after {
+				content: '';
+				display: block;
+				background: #fff;
+				width: 10px;
+				position: absolute;
+				left: 50%;
+    			transform: translateX(-50%);
+			}
 
 			&:before {
-				content: '';
-				position: absolute;
-				top: 50%;
-				transform: translate(-50%, -50%);
-				left: 50%;
-				border-bottom: 50px solid #FF9800;
-				border-right: 30px solid transparent;
-				border-left: 30px solid transparent;
+				top: 17px;
+				height: 16px;
+				border-radius: 5px;
 			}
 
 			&:after {
-				content: '\f12a';
-				font-family: 'FontAwesome';
-				font-size: 2.2rem;
-				position: absolute;
-				top: 60%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				color: #fff;
+				top: 34px;
+				height: 8px;
+			    border-radius: 50%;
 			}
 		}
 	}
