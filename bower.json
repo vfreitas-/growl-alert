@@ -1,0 +1,25 @@
+{
+  "name": "growl-alert",
+  "description": "A simple growl like notification system.",
+  "main": "index.js",
+  "authors": [
+    "Vitor <vitor_freitas_b@hotmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "growl",
+    "message",
+    "alert",
+    "javascript",
+    "lib"
+  ],
+  "homepage": "https://github.com/vfreitas-/growl-alert",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
