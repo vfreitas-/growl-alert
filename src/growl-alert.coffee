@@ -30,23 +30,12 @@ do (window) ->
 		else
 			return { type: type }
 
-
 	window.growl = (opts) ->
 
 		$el = undefined
 		$container = undefined
 
-		config = extend({
-			class: 'alert-message'
-			activeClass: 'alert-message--active'
-			containerId: 'growl-container'
-			type: 'success'
-			text: 'Welcome to the Alert Message!'
-			fadeAway: false
-			fadeAwayTimeout: 5000
-			alertBoxLoadedCB: undefined
-			alertBoxOnCloseCB: undefined
-		}, opts)
+		config = extend(growl.defaults, opts)
 
 		typeClass =
 			success: 'alert-message--success'
@@ -106,6 +95,17 @@ do (window) ->
 
 		# return
 		return $el
+
+	window.growl.defaults =
+		class: 'alert-message'
+		activeClass: 'alert-message--active'
+		containerId: 'growl-container'
+		type: 'success'
+		text: 'Welcome to the Alert Message!'
+		fadeAway: false
+		fadeAwayTimeout: 5000
+		alertBoxLoadedCB: undefined
+		alertBoxOnCloseCB: undefined
 
 	window.growl.success = (opts) ->
 		growl(setMessage(opts, 'success'))
