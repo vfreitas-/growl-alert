@@ -63,15 +63,15 @@ do (window) ->
 
 			if $container == null
 				$container = document.createElement('div')
-				$container.setAttribute 'id', config.containerId
-				$container.setAttribute 'class', containerClass
-				document.querySelector('body').appendChild $container
+				$container.setAttribute('id', config.containerId)
+				$container.setAttribute('class', containerClass)
+				document.querySelector('body').appendChild($container)
 
 			$el = document.createElement('div')
 			$el.innerHTML = htmlTemplate
-			$el.setAttribute 'class', config.class
-			$container.insertBefore $el, $container.firstChild
-			$el.classList.add typeClass[config.type]
+			$el.setAttribute('class', config.class)
+			$container.insertBefore($el, $container.firstChild)
+			$el.classList.add(typeClass[config.type])
 			$el.querySelector('.alert-message__text').innerHTML = config.text
 			openMessage()
 
@@ -83,19 +83,19 @@ do (window) ->
 			return
 
 		openMessage = ->
-			$el.classList.add config.activeClass
+			$el.classList.add(config.activeClass)
 			clearTimeout fadeAwayTimeout
 
 			if config.alertBoxLoadedCB instanceof Function
-				config.alertBoxLoadedCB $self, $el
+				config.alertBoxLoadedCB($el)
 			return
 
 		closeMessage = ->
-			$el.parentNode.removeChild $el
+			$el.parentNode.removeChild($el)
 			clearTimeout fadeAwayTimeout
 
 			if config.alertBoxOnCloseCB instanceof Function
-				config.alertBoxOnCloseCB $self, $el
+				config.alertBoxOnCloseCB($el)
 			return
 
 		bootstrap()
