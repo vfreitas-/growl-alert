@@ -9,10 +9,12 @@ do (window) ->
 		"""
 
 	extend = ->
-		for i in [1...arguments]
+		i = 1
+		while i < arguments.length
 			for key of arguments[i]
 				if arguments[i].hasOwnProperty(key)
 					arguments[0][key] = arguments[i][key]
+			i++
 		arguments[0]
 
 	window.growl = (opts) ->
@@ -87,7 +89,7 @@ do (window) ->
 		$el.querySelector('.' + closeClass).addEventListener 'click', ->
 			closeMessage()
 			return
-			
+
 		# return
 		$el
 
