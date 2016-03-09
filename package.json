@@ -1,6 +1,6 @@
 {
   "name": "growl-alert",
-  "version": "1.0.0",
+  "version": "v0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/vfreitas-/growl-alert.git"
   },
-  "author": "",
+  "author": "Vitor Freitas <vitor_freitas_b@hotmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vfreitas-/growl-alert/issues"
