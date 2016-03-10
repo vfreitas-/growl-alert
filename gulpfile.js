@@ -18,7 +18,8 @@ var paths = {
 	dist: 'dist/'
 };
 
-var minify = (0 <= process.argv.indexOf('--minify'));
+var minify = (0 <= process.argv.indexOf('--minify'))
+  , maps = (0 <= process.argv.indexOf('--maps'));
 
 gulp.task('default', ['sass', 'coffee'], function() {
 
@@ -41,8 +42,8 @@ gulp.task('sass', function() {
 
 gulp.task('coffee', function() {
 	return gulp.src(paths.src.coffee)
-		.pipe(sourcemaps.init())
+		.pipe(gif(maps, sourcemaps.init() ))
 		.pipe(coffee({ bare: true })).on('error', gutil.log)
-		.pipe(sourcemaps.write())
+		.pipe(gif(maps, sourcemaps.write() ))
 		.pipe(gulp.dest(paths.dist));
 });

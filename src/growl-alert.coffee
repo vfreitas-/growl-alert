@@ -118,7 +118,7 @@ do (window) ->
 		closingClass: 'alert-message--closing'
 		containerId: 'growl-container'
 		type: 'success'
-		text: 'Welcome to the Alert Message!'
+		text: 'Simple notification'
 		fadeAway: false
 		fadeAwayTimeout: 5000
 		alertBoxLoadedCB: undefined
