@@ -17,6 +17,17 @@ do (window) ->
 			i++
 		arguments[0]
 
+	animationProp = do ->
+		el = document.createElement('fake')
+		animations =
+			'animation': 'animationend'
+			'OAnimation': 'oAnimationEnd'
+			'MozAnimation': 'animationend'
+			'WebkitAnimation': 'webkitAnimationEnd'
+		for a of animations
+			if el.style[a] != undefined
+				return animations[a]
+
 	setMessage = (param, type) ->
 		if typeof param == 'string'
 			opts =
@@ -80,7 +91,12 @@ do (window) ->
 			return
 
 		closeMessage = ->
-			$el.parentNode.removeChild($el)
+			$el.classList.add(config.closingClass)
+
+			$el.addEventListener(animationProp, ->
+				$el.parentNode.removeChild($el)
+			)
+
 			clearTimeout fadeAwayTimeout
 
 			if config.alertBoxOnCloseCB instanceof Function
@@ -99,6 +115,7 @@ do (window) ->
 	window.growl.defaults =
 		class: 'alert-message'
 		activeClass: 'alert-message--active'
+		closingClass: 'alert-message--closing'
 		containerId: 'growl-container'
 		type: 'success'
 		text: 'Welcome to the Alert Message!'

@@ -51,7 +51,8 @@
     color: #fff;
     font-size: 1rem;
     word-wrap: break-word;
-    font-weight: 600; }
+    font-weight: 600;
+    overflow: hidden; }
   .alert-message__close {
     position: absolute;
     top: 10px;
@@ -183,8 +184,8 @@
       -webkit-animation: warning-opacity .3s linear .8s forwards;
               animation: warning-opacity .3s linear .8s forwards; }
   .alert-message--closing {
-    -webkit-animation: alert-message-out .5s ease-in;
-            animation: alert-message-out .5s ease-in; }
+    -webkit-animation: alert-message-out .5s ease-in forwards;
+            animation: alert-message-out .5s ease-in forwards; }
 
 @-webkit-keyframes alert-message-in {
   0% {
