@@ -1,13 +1,15 @@
 'use strict';
 
-var gulp = require('gulp')
-  , gutil = require('gulp-util')
-  , prefixer = require('gulp-autoprefixer')
-  , sass = require('gulp-sass')
-  , coffee = require('gulp-coffee')
-  , sourcemaps = require('gulp-sourcemaps')
-  , minifyCSS = require('gulp-minify-css')
-  , gif = require('gulp-if');
+var gulp 		= require('gulp')
+  , gutil 		= require('gulp-util')
+  , prefixer 	= require('gulp-autoprefixer')
+  , sass 		= require('gulp-sass')
+  , coffee 		= require('gulp-coffee')
+  , rename		= require('gulp-rename')
+  , sourcemaps 	= require('gulp-sourcemaps')
+  , uglify 		= require('gulp-uglify')
+  , minifyCSS 	= require('gulp-minify-css')
+  , gif 		= require('gulp-if');
 
 
 var paths = {
@@ -36,7 +38,9 @@ gulp.task('sass', function() {
 		.pipe(prefixer({
 			browsers: ['last 3 versions', 'IE 10']
 		}))
-		.pipe(gif(minify, minifyCSS() ))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(rename('growl-alert.min.css'))
+		.pipe(minifyCSS())
 		.pipe(gulp.dest(paths.dist));
 });
 
@@ -45,5 +49,8 @@ gulp.task('coffee', function() {
 		.pipe(gif(maps, sourcemaps.init() ))
 		.pipe(coffee({ bare: true })).on('error', gutil.log)
 		.pipe(gif(maps, sourcemaps.write() ))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(rename('growl-alert.min.js'))
+		.pipe(uglify())
 		.pipe(gulp.dest(paths.dist));
 });
