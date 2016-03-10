@@ -29,3 +29,14 @@ growl.info();
 
 ```
 
+### options
+
+*option: (default value) type/values description*
+
+- **type**: (*'success'*) ['success', 'error', 'warning', 'info'] Type of the growl-alertw
+- **text**: The message
+- **fadeAway**: (*false*) Boolean: If the growl notification should fade away after x milliseconds
+- **fadeAwayTimeout**: (*5000*) Integer: Time in milliseconds.
+- **alertBoxLoadedCB** -> Function: open callback
+- **alertBoxOnCloseCB** -> Function: close callback
+
