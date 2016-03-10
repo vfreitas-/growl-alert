@@ -33,7 +33,7 @@ growl.info();
 
 *option: (default value) type/values description*
 
-- **type**: (*'success'*) ['success', 'error', 'warning', 'info'] Type of the growl-alertw
+- **type**: (*'success'*) ['success', 'error', 'warning', 'info'] Type of the growl-alert
 - **text**: The message
 - **fadeAway**: (*false*) Boolean: If the growl notification should fade away after x milliseconds
 - **fadeAwayTimeout**: (*5000*) Integer: Time in milliseconds.
