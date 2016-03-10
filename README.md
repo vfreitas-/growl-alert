@@ -37,6 +37,10 @@ growl.info();
 - **text**: The message
 - **fadeAway**: (*false*) Boolean: If the growl notification should fade away after x milliseconds
 - **fadeAwayTimeout**: (*5000*) Integer: Time in milliseconds.
-- **alertBoxLoadedCB** -> Function: open callback
-- **alertBoxOnCloseCB** -> Function: close callback
+- **alertBoxLoadedCB**: Function: open callback
+- **alertBoxOnCloseCB**: Function: close callback
 
+## //TODO
+
+- Add position option(bottom-left, bottom-right, top-left, top-right)
+- More animations
