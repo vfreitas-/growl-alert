@@ -12,6 +12,14 @@ This lib is registered at bower and npm.
 
 `bower install growl-alert --save`
 
+After installed you need to add both css and js to your application.
+
+`node_modules/growl-alert/dist/..css`
+
+`bower_components/growl-alert/dist/..css`
+
+There you will find both, normal and minified versions
+
 ## Usage
 
 You can use the global `growl()` function, or one of the shortcuts.
