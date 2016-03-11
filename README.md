@@ -40,7 +40,7 @@ growl.info();
 - **alertBoxLoadedCB**: Function: open callback
 - **alertBoxOnCloseCB**: Function: close callback
  
-### You can also define your own default options
+#### You can also define your own default options
 
 `growl.defaults.type = 'error'`
 
