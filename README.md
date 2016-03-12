@@ -12,6 +12,14 @@ This lib is registered at bower and npm.
 
 `bower install growl-alert --save`
 
+After installed you need to add both css and js to your application.
+
+`node_modules/growl-alert/dist/..css`
+
+`bower_components/growl-alert/dist/..css`
+
+There you will find both, normal and minified versions
+
 ## Usage
 
 You can use the global `growl()` function, or one of the shortcuts.
@@ -39,6 +47,10 @@ growl.info();
 - **fadeAwayTimeout**: (*5000*) Integer: Time in milliseconds.
 - **alertBoxLoadedCB**: Function: open callback
 - **alertBoxOnCloseCB**: Function: close callback
+ 
+#### You can also define your own default options
+
+`growl.defaults.type = 'error'`
 
 ## //TODO
 
