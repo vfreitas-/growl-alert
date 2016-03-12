@@ -1,5 +1,5 @@
-'use strict';
 (function(window) {
+  'use strict';
   var animationProp, extend, htmlTemplate, setMessage;
   htmlTemplate = "<div class=\"alert-message__close\"></div>\n<div class=\"alert-message__icon\"></div>\n<p class=\"alert-message__text\"></p>";
   extend = function() {
