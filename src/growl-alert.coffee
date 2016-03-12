@@ -1,7 +1,7 @@
-'use strict';
 
 do (window) ->
-
+	'use strict';
+	
 	htmlTemplate = """
 		<div class="alert-message__close"></div>
 		<div class="alert-message__icon"></div>

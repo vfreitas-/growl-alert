@@ -19,8 +19,8 @@ module.exports = function(config) {
     files: [
 		'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
 		'dist/growl-alert.js',
-		'test/*.js',
-		'dist/*.css'
+		'dist/growl-alert.css',
+		'test/*.js'
     ],
 
 

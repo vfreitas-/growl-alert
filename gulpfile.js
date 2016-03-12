@@ -20,8 +20,7 @@ var paths = {
 	dist: 'dist/'
 };
 
-var minify = (0 <= process.argv.indexOf('--minify'))
-  , maps = (0 <= process.argv.indexOf('--maps'));
+var maps = (0 <= process.argv.indexOf('--maps'));
 
 gulp.task('default', ['sass', 'coffee'], function() {
 
