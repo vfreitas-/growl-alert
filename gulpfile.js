@@ -51,5 +51,6 @@ gulp.task('coffee', function() {
 		.pipe(gulp.dest(paths.dist))
 		.pipe(rename('growl-alert.min.js'))
 		.pipe(uglify())
+        .on('error', gutil.log)
 		.pipe(gulp.dest(paths.dist));
 });

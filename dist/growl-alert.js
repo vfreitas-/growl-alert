@@ -3,17 +3,19 @@
   var animationProp, extend, htmlTemplate, setMessage;
   htmlTemplate = "<div class=\"alert-message__close\"></div>\n<div class=\"alert-message__icon\"></div>\n<p class=\"alert-message__text\"></p>";
   extend = function() {
-    var i, key;
+    var i, key, results;
     i = 1;
+    results = [];
     while (i < arguments.length) {
       for (key in arguments[i]) {
         if (arguments[i].hasOwnProperty(key)) {
           arguments[0][key] = arguments[i][key];
         }
+        i++;
       }
-      i++;
+      results.push(arguments[0]);
     }
-    return arguments[0];
+    return results;
   };
   animationProp = (function() {
     var a, animations, el;
@@ -78,7 +80,7 @@
       $el.querySelector('.alert-message__text').innerHTML = config.text;
       openMessage();
       if (config.fadeAway && !isNaN(config.fadeAwayTimeout)) {
-        fadeAwayTimeout = setTimeout((function() {
+        return fadeAwayTimeout = setTimeout((function() {
           closeMessage();
         }), config.fadeAwayTimeout);
       }

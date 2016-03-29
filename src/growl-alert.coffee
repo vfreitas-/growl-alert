@@ -1,139 +1,139 @@
 
 do (window) ->
-	'use strict';
-	
-	htmlTemplate = """
-		<div class="alert-message__close"></div>
-		<div class="alert-message__icon"></div>
-		<p class="alert-message__text"></p>
-		"""
+    'use strict';
 
-	extend = ->
-		i = 1
-		while i < arguments.length
-			for key of arguments[i]
-				if arguments[i].hasOwnProperty(key)
-					arguments[0][key] = arguments[i][key]
-			i++
-		arguments[0]
+    htmlTemplate = """
+        <div class="alert-message__close"></div>
+        <div class="alert-message__icon"></div>
+        <p class="alert-message__text"></p>
+        """
 
-	animationProp = do ->
-		el = document.createElement('fake')
-		animations =
-			'animation': 'animationend'
-			'OAnimation': 'oAnimationEnd'
-			'MozAnimation': 'animationend'
-			'WebkitAnimation': 'webkitAnimationEnd'
-		for a of animations
-			if el.style[a] != undefined
-				return animations[a]
+    extend = ->
+        i = 1
+        while i < arguments.length
+            for key of arguments[i]
+                if arguments[i].hasOwnProperty(key)
+                    arguments[0][key] = arguments[i][key]
+                i++
+            arguments[0]
 
-	setMessage = (param, type) ->
-		if typeof param == 'string'
-			opts =
-				text: param
-				type: type
-			return opts
-		else if param != null && typeof param == 'object'
-			return extend(param, {
-				type: type
-			})
-		else
-			return { type: type }
+    animationProp = do ->
+        el = document.createElement('fake')
+        animations =
+            'animation': 'animationend'
+            'OAnimation': 'oAnimationEnd'
+            'MozAnimation': 'animationend'
+            'WebkitAnimation': 'webkitAnimationEnd'
+        for a of animations
+            if el.style[a] != undefined
+                return animations[a]
 
-	window.growl = (opts) ->
+    setMessage = (param, type) ->
+        if typeof param == 'string'
+            opts =
+                text: param
+                type: type
+            return opts
+        else if param != null && typeof param == 'object'
+            return extend(param, {
+                type: type
+            })
+        else
+            return { type: type }
 
-		$el = undefined
-		$container = undefined
+    window.growl = (opts) ->
 
-		config = extend(growl.defaults, opts)
+        $el = undefined
+        $container = undefined
 
-		typeClass =
-			success: 'alert-message--success'
-			info: 'alert-message--info'
-			warning: 'alert-message--warning'
-			error: 'alert-message--error'
+        config = extend(growl.defaults, opts)
 
-		closeClass = 'alert-message__close'
-		containerClass = 'container-alert-message'
-		fadeAwayTimeout = undefined
+        typeClass =
+            success: 'alert-message--success'
+            info: 'alert-message--info'
+            warning: 'alert-message--warning'
+            error: 'alert-message--error'
 
-		bootstrap = ->
-			$container = document.querySelector('#' + config.containerId)
+        closeClass = 'alert-message__close'
+        containerClass = 'container-alert-message'
+        fadeAwayTimeout = undefined
 
-			if $container == null
-				$container = document.createElement('div')
-				$container.setAttribute('id', config.containerId)
-				$container.setAttribute('class', containerClass)
-				document.querySelector('body').appendChild($container)
+        bootstrap = ->
+            $container = document.querySelector('#' + config.containerId)
 
-			$el = document.createElement('div')
-			$el.innerHTML = htmlTemplate
-			$el.setAttribute('class', config.class)
-			$container.insertBefore($el, $container.firstChild)
-			$el.classList.add(typeClass[config.type])
-			$el.querySelector('.alert-message__text').innerHTML = config.text
-			openMessage()
+            if $container == null
+                $container = document.createElement('div')
+                $container.setAttribute('id', config.containerId)
+                $container.setAttribute('class', containerClass)
+                document.querySelector('body').appendChild($container)
 
-			if config.fadeAway and !isNaN(config.fadeAwayTimeout)
-				fadeAwayTimeout = setTimeout((->
-					closeMessage()
-					return
-				), config.fadeAwayTimeout)
-			return
+            $el = document.createElement('div')
+            $el.innerHTML = htmlTemplate
+            $el.setAttribute('class', config.class)
+            $container.insertBefore($el, $container.firstChild)
+            $el.classList.add(typeClass[config.type])
+            $el.querySelector('.alert-message__text').innerHTML = config.text
+            openMessage()
 
-		openMessage = ->
-			$el.classList.add(config.activeClass)
-			clearTimeout fadeAwayTimeout
+            if config.fadeAway and !isNaN(config.fadeAwayTimeout)
+                fadeAwayTimeout = setTimeout((->
+                    closeMessage()
+                    return
+                ), config.fadeAwayTimeout)
+            return
 
-			if config.alertBoxLoadedCB instanceof Function
-				config.alertBoxLoadedCB($el)
-			return
+        openMessage = ->
+            $el.classList.add(config.activeClass)
+            clearTimeout fadeAwayTimeout
 
-		closeMessage = ->
-			$el.classList.add(config.closingClass)
+            if config.alertBoxLoadedCB instanceof Function
+                config.alertBoxLoadedCB($el)
+            return
 
-			$el.addEventListener(animationProp, ->
-				$el.parentNode.removeChild($el)
-			)
+        closeMessage = ->
+            $el.classList.add(config.closingClass)
 
-			clearTimeout fadeAwayTimeout
+            $el.addEventListener(animationProp, ->
+                $el.parentNode.removeChild($el)
+            )
 
-			if config.alertBoxOnCloseCB instanceof Function
-				config.alertBoxOnCloseCB($el)
-			return
+            clearTimeout fadeAwayTimeout
 
-		bootstrap()
+            if config.alertBoxOnCloseCB instanceof Function
+                config.alertBoxOnCloseCB($el)
+            return
 
-		$el.querySelector('.' + closeClass).addEventListener 'click', ->
-			closeMessage()
-			return
+        bootstrap()
 
-		# return
-		return $el
+        $el.querySelector('.' + closeClass).addEventListener 'click', ->
+            closeMessage()
+            return
 
-	window.growl.defaults =
-		class: 'alert-message'
-		activeClass: 'alert-message--active'
-		closingClass: 'alert-message--closing'
-		containerId: 'growl-container'
-		type: 'success'
-		text: 'Simple notification'
-		fadeAway: false
-		fadeAwayTimeout: 5000
-		alertBoxLoadedCB: undefined
-		alertBoxOnCloseCB: undefined
+        # return
+        return $el
 
-	window.growl.success = (opts) ->
-		growl(setMessage(opts, 'success'))
+    window.growl.defaults =
+        class: 'alert-message'
+        activeClass: 'alert-message--active'
+        closingClass: 'alert-message--closing'
+        containerId: 'growl-container'
+        type: 'success'
+        text: 'Simple notification'
+        fadeAway: false
+        fadeAwayTimeout: 5000
+        alertBoxLoadedCB: undefined
+        alertBoxOnCloseCB: undefined
 
-	window.growl.error = (opts) ->
-		growl(setMessage(opts, 'error'))
+    window.growl.success = (opts) ->
+        growl(setMessage(opts, 'success'))
 
-	window.growl.warning = (opts) ->
-		growl(setMessage(opts, 'warning'))
+    window.growl.error = (opts) ->
+        growl(setMessage(opts, 'error'))
 
-	window.growl.info = (opts) ->
-		growl(setMessage(opts, 'info'))
+    window.growl.warning = (opts) ->
+        growl(setMessage(opts, 'warning'))
 
-	window.growl
+    window.growl.info = (opts) ->
+        growl(setMessage(opts, 'info'))
+
+    window.growl
