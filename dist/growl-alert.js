@@ -79,8 +79,13 @@
       $el.classList.add(typeClass[config.type]);
       $el.querySelector('.alert-message__text').innerHTML = config.text;
       openMessage();
+      if (config.closeOnClick) {
+        $el.addEventListener('click touchstart', function() {
+          return closeMessage();
+        });
+      }
       if (config.fadeAway && !isNaN(config.fadeAwayTimeout)) {
-        return fadeAwayTimeout = setTimeout((function() {
+        fadeAwayTimeout = setTimeout((function() {
           closeMessage();
         }), config.fadeAwayTimeout);
       }
@@ -115,6 +120,7 @@
     containerId: 'growl-container',
     type: 'success',
     text: 'Simple notification',
+    closeOnClick: false,
     fadeAway: false,
     fadeAwayTimeout: 5000,
     alertBoxLoadedCB: void 0,

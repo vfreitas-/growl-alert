@@ -75,6 +75,11 @@ do (window) ->
             $el.querySelector('.alert-message__text').innerHTML = config.text
             openMessage()
 
+            if config.closeOnClick
+                $el.addEventListener('click touchstart', ->
+                    closeMessage()
+                )
+
             if config.fadeAway and !isNaN(config.fadeAwayTimeout)
                 fadeAwayTimeout = setTimeout((->
                     closeMessage()
@@ -119,6 +124,7 @@ do (window) ->
         containerId: 'growl-container'
         type: 'success'
         text: 'Simple notification'
+        closeOnClick: false
         fadeAway: false
         fadeAwayTimeout: 5000
         alertBoxLoadedCB: undefined
