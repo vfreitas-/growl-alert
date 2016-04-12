@@ -41,7 +41,7 @@ do (window) ->
         else
             return { type: type }
 
-    window.growl = (opts) ->
+    growl = (opts) ->
 
         $el = undefined
         $container = undefined
@@ -117,7 +117,7 @@ do (window) ->
         # return
         return $el
 
-    window.growl.defaults =
+    growl.defaults =
         class: 'alert-message'
         activeClass: 'alert-message--active'
         closingClass: 'alert-message--closing'
@@ -130,16 +130,21 @@ do (window) ->
         alertBoxLoadedCB: undefined
         alertBoxOnCloseCB: undefined
 
-    window.growl.success = (opts) ->
+    growl.success = (opts) ->
         growl(setMessage(opts, 'success'))
 
-    window.growl.error = (opts) ->
+    growl.error = (opts) ->
         growl(setMessage(opts, 'error'))
 
-    window.growl.warning = (opts) ->
+    growl.warning = (opts) ->
         growl(setMessage(opts, 'warning'))
 
-    window.growl.info = (opts) ->
+    growl.info = (opts) ->
         growl(setMessage(opts, 'info'))
 
-    window.growl
+    if typeof module == "object" && module.exports
+        module.exports = growl
+    else if typeof define == "function" && define.amd
+      define(["growl"], growl)
+    else
+        window.growl = growl

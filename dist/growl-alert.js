@@ -1,6 +1,6 @@
 (function(window) {
   'use strict';
-  var animationProp, extend, htmlTemplate, setMessage;
+  var animationProp, extend, growl, htmlTemplate, setMessage;
   htmlTemplate = "<div class=\"alert-message__close\"></div>\n<div class=\"alert-message__icon\"></div>\n<p class=\"alert-message__text\"></p>";
   extend = function() {
     var i, key, results;
@@ -50,7 +50,7 @@
       };
     }
   };
-  window.growl = function(opts) {
+  growl = function(opts) {
     var $container, $el, bootstrap, closeClass, closeMessage, config, containerClass, fadeAwayTimeout, openMessage, typeClass;
     $el = void 0;
     $container = void 0;
@@ -113,7 +113,7 @@
     });
     return $el;
   };
-  window.growl.defaults = {
+  growl.defaults = {
     "class": 'alert-message',
     activeClass: 'alert-message--active',
     closingClass: 'alert-message--closing',
@@ -126,17 +126,23 @@
     alertBoxLoadedCB: void 0,
     alertBoxOnCloseCB: void 0
   };
-  window.growl.success = function(opts) {
+  growl.success = function(opts) {
     return growl(setMessage(opts, 'success'));
   };
-  window.growl.error = function(opts) {
+  growl.error = function(opts) {
     return growl(setMessage(opts, 'error'));
   };
-  window.growl.warning = function(opts) {
+  growl.warning = function(opts) {
     return growl(setMessage(opts, 'warning'));
   };
-  window.growl.info = function(opts) {
+  growl.info = function(opts) {
     return growl(setMessage(opts, 'info'));
   };
-  return window.growl;
+  if (typeof module === "object" && module.exports) {
+    return module.exports = growl;
+  } else if (typeof define === "function" && define.amd) {
+    return define(["growl"], growl);
+  } else {
+    return window.growl = growl;
+  }
 })(window);
