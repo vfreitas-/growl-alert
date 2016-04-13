@@ -145,6 +145,8 @@ do (window) ->
     if typeof module == "object" && module.exports
         module.exports = growl
     else if typeof define == "function" && define.amd
-      define(["growl"], growl)
+      define([], growl)
     else
         window.growl = growl
+
+    return growl

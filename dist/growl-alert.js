@@ -139,10 +139,11 @@
     return growl(setMessage(opts, 'info'));
   };
   if (typeof module === "object" && module.exports) {
-    return module.exports = growl;
+    module.exports = growl;
   } else if (typeof define === "function" && define.amd) {
-    return define(["growl"], growl);
+    define([], growl);
   } else {
-    return window.growl = growl;
+    window.growl = growl;
   }
+  return growl;
 })(window);
