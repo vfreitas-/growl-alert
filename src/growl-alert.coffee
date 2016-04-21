@@ -14,8 +14,8 @@ do (window) ->
             for key of arguments[i]
                 if arguments[i].hasOwnProperty(key)
                     arguments[0][key] = arguments[i][key]
-                i++
-            arguments[0]
+            i++
+        arguments[0]
 
     animationProp = do ->
         el = document.createElement('fake')

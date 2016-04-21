@@ -3,19 +3,17 @@
   var animationProp, extend, growl, htmlTemplate, setMessage;
   htmlTemplate = "<div class=\"alert-message__close\"></div>\n<div class=\"alert-message__icon\"></div>\n<p class=\"alert-message__text\"></p>";
   extend = function() {
-    var i, key, results;
+    var i, key;
     i = 1;
-    results = [];
     while (i < arguments.length) {
       for (key in arguments[i]) {
         if (arguments[i].hasOwnProperty(key)) {
           arguments[0][key] = arguments[i][key];
         }
-        i++;
       }
-      results.push(arguments[0]);
+      i++;
     }
-    return results;
+    return arguments[0];
   };
   animationProp = (function() {
     var a, animations, el;
