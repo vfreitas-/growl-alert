@@ -1,36 +1,54 @@
 {
   "name": "growl-alert",
-  "version": "v0.3.2",
-  "description": "",
+  "version": "1.0.0",
+  "description": "A simple growl like notification system.",
+  "jsnext:main": "src/index.js",
   "main": "dist/growl-alert.js",
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "rollup -c rollup.config.js -m -w",
+    "build": "rollup -c rollup.config.js -m",
+    "build:minify": "NODE_ENV=production rollup -c rollup.config.js -o dist/growl-alert.min.js",
+    "test": "karma start --single-run",
+    "test:w": "karma start",
+    "docs": "documentation readme src/index.js --section API -q",
+    "release": "npm run build && npm run build:minify && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vfreitas-/growl-alert.git"
-  },
-  "author": "Vitor Freitas <vitor_freitas_b@hotmail.com>",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": "vfreitas-/growl-alert",
+  "homepage": "https://github.com/vfreitas-/growl-alert",
+  "authors": [
+    "Vitor Freitas <vitor_freitas_b@hotmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vfreitas-/growl-alert/issues"
   },
-  "homepage": "https://github.com/vfreitas-/growl-alert#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-coffee": "^2.3.1",
-    "gulp-if": "^2.0.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.7",
-    "jasmine-core": "^2.4.1",
-    "jasmine-jquery": "^2.1.1",
-    "karma": "^0.13.21",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-jasmine": "^0.3.7",
-    "karma-jquery": "^0.1.0"
+    "chai": "^3.5.0",
+    "documentation": "^4.0.0-beta.18",
+    "eslint": "^3.14.0",
+    "karma": "^1.4.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha": "^1.3.0",
+    "karma-rollup-plugin": "^0.2.4",
+    "mocha": "^3.2.0",
+    "rollup": "^0.36.4",
+    "rollup-plugin-buble": "^0.14.0",
+    "rollup-plugin-coverage": "^0.1.4",
+    "rollup-plugin-eslint": "^3.0.0",
+    "rollup-plugin-istanbul": "^1.1.0",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-watch": "^2.5.0"
   }
 }
