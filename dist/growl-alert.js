@@ -1,117 +1,81 @@
-(function(window) {
-  'use strict';
-  var animationProp, extend, growl, htmlTemplate, setMessage;
-  htmlTemplate = "<div class=\"alert-message__close\"></div>\n<div class=\"alert-message__icon\"></div>\n<p class=\"alert-message__text\"></p>";
-  extend = function() {
-    var i, key;
-    i = 1;
-    while (i < arguments.length) {
-      for (key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          arguments[0][key] = arguments[i][key];
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global.growl = factory());
+}(this, (function () { 'use strict';
+
+var arguments$1 = arguments;
+
+/**
+ * 
+ */
+var extend = function () {
+    var i = 1, key;
+
+    while (i < arguments$1.length) {
+        for (key in arguments$1[i]) {
+            if (arguments$1[i].hasOwnProperty(key)) {
+                arguments$1[0][key] = arguments$1[i][key];
+            }
         }
-      }
-      i++;
+        i++;
     }
-    return arguments[0];
-  };
-  animationProp = (function() {
-    var a, animations, el;
-    el = document.createElement('fake');
-    animations = {
-      'animation': 'animationend',
-      'OAnimation': 'oAnimationEnd',
-      'MozAnimation': 'animationend',
-      'WebkitAnimation': 'webkitAnimationEnd'
+    return arguments$1[0]
+};
+
+/**
+ * 
+ */
+var animationEnd = (function () {
+    var el = document.createElement('fake');
+
+    var animations = {
+      animation: 'animationend',
+      OAnimation: 'oAnimationEnd',
+      MozAnimation: 'animationend',
+      WebkitAnimation: 'webkitAnimationEnd'
     };
-    for (a in animations) {
-      if (el.style[a] !== void 0) {
-        return animations[a];
-      }
+
+    for (var a in animations) {
+        if (el.style[a] !== void 0) {
+            return animations[a]
+        }
     }
-  })();
-  setMessage = function(param, type) {
-    var opts;
+})();
+
+/**
+ * 
+ */
+var defineType = function (param, type) {
     if (typeof param === 'string') {
-      opts = {
-        text: param,
-        type: type
-      };
-      return opts;
+        var opts = {
+            text: param,
+            type: type
+        };
+        return opts
     } else if (param !== null && typeof param === 'object') {
-      return extend(param, {
-        type: type
-      });
+        return extend(param, {
+            type: type
+        })
     } else {
-      return {
-        type: type
-      };
+        return { type: type }
     }
-  };
-  growl = function(opts) {
-    var $container, $el, bootstrap, closeClass, closeMessage, config, containerClass, fadeAwayTimeout, openMessage, typeClass;
-    $el = void 0;
-    $container = void 0;
-    config = extend(growl.defaults, opts);
-    typeClass = {
-      success: 'alert-message--success',
-      info: 'alert-message--info',
-      warning: 'alert-message--warning',
-      error: 'alert-message--error'
-    };
-    closeClass = 'alert-message__close';
-    containerClass = 'container-alert-message';
-    fadeAwayTimeout = void 0;
-    bootstrap = function() {
-      $container = document.querySelector('#' + config.containerId);
-      if ($container === null) {
-        $container = document.createElement('div');
-        $container.setAttribute('id', config.containerId);
-        $container.setAttribute('class', containerClass);
-        document.querySelector('body').appendChild($container);
-      }
-      $el = document.createElement('div');
-      $el.innerHTML = htmlTemplate;
-      $el.setAttribute('class', config["class"]);
-      $container.insertBefore($el, $container.firstChild);
-      $el.classList.add(typeClass[config.type]);
-      $el.querySelector('.alert-message__text').innerHTML = config.text;
-      openMessage();
-      if (config.closeOnClick) {
-        $el.addEventListener('click touchstart', function() {
-          return closeMessage();
-        });
-      }
-      if (config.fadeAway && !isNaN(config.fadeAwayTimeout)) {
-        fadeAwayTimeout = setTimeout((function() {
-          closeMessage();
-        }), config.fadeAwayTimeout);
-      }
-    };
-    openMessage = function() {
-      $el.classList.add(config.activeClass);
-      clearTimeout(fadeAwayTimeout);
-      if (config.alertBoxLoadedCB instanceof Function) {
-        config.alertBoxLoadedCB($el);
-      }
-    };
-    closeMessage = function() {
-      $el.classList.add(config.closingClass);
-      $el.addEventListener(animationProp, function() {
-        return $el.parentNode.removeChild($el);
-      });
-      clearTimeout(fadeAwayTimeout);
-      if (config.alertBoxOnCloseCB instanceof Function) {
-        config.alertBoxOnCloseCB($el);
-      }
-    };
-    bootstrap();
-    $el.querySelector('.' + closeClass).addEventListener('click', function() {
-      closeMessage();
-    });
-    return $el;
-  };
-  growl.defaults = {
+};
+
+/**
+ * 
+ */
+var types = {
+    success: 'alert-message--success',
+    info: 'alert-message--info',
+    warning: 'alert-message--warning',
+    error: 'alert-message--error'
+};
+
+/**
+ * 
+ */
+var defaults = {
     "class": 'alert-message',
     activeClass: 'alert-message--active',
     closingClass: 'alert-message--closing',
@@ -123,25 +87,98 @@
     fadeAwayTimeout: 5000,
     alertBoxLoadedCB: void 0,
     alertBoxOnCloseCB: void 0
-  };
-  growl.success = function(opts) {
-    return growl(setMessage(opts, 'success'));
-  };
-  growl.error = function(opts) {
-    return growl(setMessage(opts, 'error'));
-  };
-  growl.warning = function(opts) {
-    return growl(setMessage(opts, 'warning'));
-  };
-  growl.info = function(opts) {
-    return growl(setMessage(opts, 'info'));
-  };
-  if (typeof module === "object" && module.exports) {
-    module.exports = growl;
-  } else if (typeof define === "function" && define.amd) {
-    define([], growl);
-  } else {
-    window.growl = growl;
-  }
-  return growl;
-})(window);
+};
+
+/**
+ * 
+ */
+var template = "\n    <div class=\"alert-message__close\"></div>\n    <div class=\"alert-message__icon\"></div>\n    <p class=\"alert-message__text\"></p>\n";
+
+var alertClass = 'alert-message';
+var textClass = 'alert-message__text';
+var closeClass = 'alert-message__close';
+var containerClass = 'container-alert-message';
+
+var growl = function (opts) {
+    
+    var config = extend(growl.defaults, opts);
+
+    var $el, fadeAwayTimeout;
+
+    var bootstrap = function () {
+        var doc = document;
+
+        var $container = doc.querySelector(("#" + (config.containerId)));
+
+        if (!$container) {
+            $container = createContainer();
+        }
+
+        $el = doc.createElement('div')
+            .setAttribute('class', alertClass)
+            .innerHTML = template;
+
+        $container.insertBefore($el, $container.firstChild);
+
+        $el.classList.add(types[config.type] || 'success');
+        $el.querySelector(textClass).innerHTML = config.text;
+
+        openMessage();
+    };
+
+    var openMessage = function () {
+        $el.classList.add(config.activeClass);
+        clearTimeout(fadeAwayTimeout);
+
+        if (config.alertBoxLoadedCB instanceof Function) {
+            config.alertBoxLoadedCB($el);
+        }
+    };
+
+    var closeMessage = function () {
+        $el.classList.add(config.closingClass);
+
+        $el.addEventListnener(animationEnd, function () { return $el.parentNode.removeChild($el); });
+
+        clearTimeout(fadeAwayTimeout);
+
+        if (config.alertBoxLoadedCB instanceof Function) {
+            config.alertBoxLoadedCB($el);
+        }
+    };
+
+    bootstrap();
+
+    $el.querySelector(("." + closeClass)).addEventListnener('click', function () {
+        closeMessage();
+    });
+
+    return $el
+};
+
+var createContainer = function () {
+    var $container = doc.createElement('div')
+        .setAttribute('id', config.containerId)
+        .setAttribute('class', containerClass);
+
+    doc.body.appendChild($container);
+
+    return $container
+};
+
+/**
+ * Define the default values
+ */
+growl.defaults = defaults;
+
+/**
+ * Create one shortcut function for each type
+ */
+Object.keys(types).forEach(function (type) {
+    growl[type] = function (opts) { return growl(defineType(opts, type)); };
+});
+
+return growl;
+
+})));
+//# sourceMappingURL=growl-alert.js.map

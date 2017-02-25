@@ -2,3 +2,4 @@ npm-debug.log
 node_modules/
 temp
 .DS_Store
+dist/
