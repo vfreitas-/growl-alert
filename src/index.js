@@ -1,3 +1,4 @@
+import './sass/index.scss'
 import { extend, animationEnd, defineType } from './util'
 import { types, defaults, template } from './vars'
 
@@ -26,6 +27,7 @@ const growl = opts => {
         $container.insertBefore($el, $container.firstChild)
 
         $el.classList.add(types[config.type] || 'success')
+
         $el.querySelector(`.${textClass}`).innerHTML = config.text
 
         openMessage()
@@ -34,11 +36,15 @@ const growl = opts => {
             $el.addEventListener('click touchstart', () => closeMessage())
         }
 
-        if (config.fadaAway && Number.isInteger(config.fadeAwayTimeout)) {
+        if (config.fadaAway && !isNaN(config.fadeAwayTimeout)) {
             fadeAwayTimeout = setTimeout(() => {
                 closeMessage()
             }, config.fadeAwayTimeout)
         }
+
+        $el.querySelector(`.${closeClass}`).addEventListener('click', () => {
+            closeMessage()
+        })
     }
 
     const createContainer = () => {
@@ -74,9 +80,6 @@ const growl = opts => {
     }
 
     bootstrap()
-    // $el.querySelector(`.${closeClass}`).addEventListnener('click', () => {
-    //     closeMessage()
-    // })
 
     return $el
 }

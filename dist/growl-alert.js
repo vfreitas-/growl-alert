@@ -96,6 +96,7 @@ var template = "\n    <div class=\"alert-message__close\"></div>\n    <div class
 
 var alertClass = 'alert-message';
 var textClass = 'alert-message__text';
+var closeClass = 'alert-message__close';
 var containerClass = 'container-alert-message';
 
 var growl = function (opts) {
@@ -118,6 +119,7 @@ var growl = function (opts) {
         $container.insertBefore($el, $container.firstChild);
 
         $el.classList.add(types[config.type] || 'success');
+
         $el.querySelector(("." + textClass)).innerHTML = config.text;
 
         openMessage();
@@ -126,11 +128,15 @@ var growl = function (opts) {
             $el.addEventListener('click touchstart', function () { return closeMessage(); });
         }
 
-        if (config.fadaAway && Number.isInteger(config.fadeAwayTimeout)) {
+        if (config.fadaAway && !isNaN(config.fadeAwayTimeout)) {
             fadeAwayTimeout = setTimeout(function () {
                 closeMessage();
             }, config.fadeAwayTimeout);
         }
+
+        $el.querySelector(("." + closeClass)).addEventListener('click', function () {
+            closeMessage();
+        });
     };
 
     var createContainer = function () {
@@ -166,9 +172,6 @@ var growl = function (opts) {
     };
 
     bootstrap();
-    // $el.querySelector(`.${closeClass}`).addEventListnener('click', () => {
-    //     closeMessage()
-    // })
 
     return $el
 };
