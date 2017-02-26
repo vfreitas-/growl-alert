@@ -1,32 +1,47 @@
-const buble = require('rollup-plugin-buble')
-    , uglify = require('rollup-plugin-uglify')
-    , eslint = require('rollup-plugin-eslint')
-    , sass = require('rollup-plugin-sass')
-    , postcss = require('postcss')
-    , autoprefixer = require('autoprefixer')
+const buble         = require('rollup-plugin-buble')
+    , uglify        = require('rollup-plugin-uglify')
+    , eslint        = require('rollup-plugin-eslint')
+    , sass          = require('rollup-plugin-sass')
+    , postcss       = require('postcss')
+    , autoprefixer  = require('autoprefixer')
 
+/**
+ * Library Name
+ */
+const libName = 'growl-alert'
 
+const env = process.env.NODE_ENV
 
 let config = {
     entry: 'src/index.js',
-    dest: 'dist/growl-alert.js',
+    dest: `dist/${libName}.js`,
     format: 'umd',
     context: 'window',
     moduleName: 'growl',
     plugins: [ 
         buble({
             exclude: 'src/sass/**/*.scss'
-        }),
-
+        })
     ]
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (env === 'production') {
+    config.plugins.push(
+        sass({
+            output: `dist/${libName}.css`,
+            processor: css => postcss([autoprefixer]).process(css)
+        })
+    )
+} else if (env === 'minify') {
+    config.dest = `dist/${libName}.min.js`
     config.plugins.push(
         uglify(),
         sass({
-            output: 'dist/growl-alert.css',
-            processor: css => postcss([autoprefixer]).process(css)
+            output: `dist/${libName}.min.css`,
+            processor: css => postcss([autoprefixer]).process(css),
+            options: {
+                outputStyle: 'compressed'
+            }
         })
     )
 } else {
@@ -34,7 +49,9 @@ if (process.env.NODE_ENV === 'production') {
         eslint({
             exclude: 'src/sass/**/*.scss'
         }),
-        sass()
+        sass({
+            insert: true
+        })
     )
 }
 

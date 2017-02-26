@@ -34,7 +34,7 @@ $colors: (
 // Styles
 //=============================================
 
-.container-alert-message {
+.container-growl-alert {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -49,7 +49,7 @@ $colors: (
     }
 }
 
-.alert-message {
+.growl-alert {
     position: relative;
     margin-bottom: 10px;
 
@@ -110,7 +110,7 @@ $colors: (
     @include m(success) {
         background-color: map-get($colors, success);
 
-        & .alert-message__icon {
+        & .growl-alert__icon {
 
             &:after {
                 margin-top: 50%;
@@ -125,7 +125,7 @@ $colors: (
     @include m(info) {
         background-color: map-get($colors, info);
 
-        & .alert-message__icon {
+        & .growl-alert__icon {
             border: 2px solid darken(#fff, 5%);
             border-radius: 50%;
             position: relative;
@@ -148,7 +148,7 @@ $colors: (
     @include m(error) {
         background-color: map-get($colors, error);
 
-        & .alert-message__icon {
+        & .growl-alert__icon {
             border: 2px solid darken(#fff, 5%);
             border-radius: 50%;
 
@@ -169,7 +169,7 @@ $colors: (
     @include m(warning) {
         background-color: map-get($colors, warn);
 
-        & .alert-message__icon {
+        & .growl-alert__icon {
             position: relative;
             opacity: 0;
             transform: scale(0);
@@ -204,11 +204,11 @@ $colors: (
     }
 
     @include m(active) {
-        animation: alert-message-in .5s ease-in forwards;
+        animation: growl-alert-in .5s ease-in forwards;
 
-        &.alert-message--success {
+        &.growl-alert--success {
 
-            & .alert-message__icon {
+            & .growl-alert__icon {
 
                 &:after {
                     animation: checkmark 1s ease .8s forwards;
@@ -219,9 +219,9 @@ $colors: (
             }
         }
 
-        &.alert-message--info {
+        &.growl-alert--info {
 
-            & .alert-message__icon {
+            & .growl-alert__icon {
                 animation: info-border .4s linear .8s forwards;
 
                 &:after {
@@ -230,9 +230,9 @@ $colors: (
             }
         }
 
-        &.alert-message--error {
+        &.growl-alert--error {
 
-            & .alert-message__icon {
+            & .growl-alert__icon {
                 animation: error-border .4s linear .8s forwards;
 
                 &:after {
@@ -245,23 +245,23 @@ $colors: (
             }
         }
 
-        &.alert-message--warning {
+        &.growl-alert--warning {
 
-            & .alert-message__icon {
+            & .growl-alert__icon {
                 animation: warning-opacity .3s linear .8s forwards;
             }
         }
     }
 
     @include m(closing) {
-        animation: alert-message-out .5s ease-in forwards;
+        animation: growl-alert-out .5s ease-in forwards;
     }
 }
 
 
 // Keyframes
 //---------
-@keyframes alert-message-in {
+@keyframes growl-alert-in {
     0% {
         opacity: 0;
         transform: translateX(100%);
@@ -272,7 +272,7 @@ $colors: (
     }
 }
 
-@keyframes alert-message-out {
+@keyframes growl-alert-out {
     100% {
         opacity: 0;
         transform: translateX(100%);

@@ -90,7 +90,7 @@ const growl = opts => {
 growl.defaults = defaults
 
 /**
- * Create one shortcut function for each type
+ * Create a shortcut function for each type of alert
  */
 Object.keys(types).forEach(type => {
     growl[type] = opts => growl(defineType(opts, type))
