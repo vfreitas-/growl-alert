@@ -7,14 +7,12 @@ const closeClass = 'alert-message__close'
 const containerClass = 'container-alert-message'
 
 const growl = opts => {
-    
+    const doc = document
     const config = extend(growl.defaults, opts)
 
     let $el, fadeAwayTimeout
 
     const bootstrap = () => {
-        const doc = document
-
         let $container = doc.querySelector(`#${config.containerId}`)
 
         if (!$container) {
@@ -22,23 +20,44 @@ const growl = opts => {
         }
 
         $el = doc.createElement('div')
-            .setAttribute('class', alertClass)
-            .innerHTML = template
+        $el.setAttribute('class', alertClass)
+        $el.innerHTML = template
 
         $container.insertBefore($el, $container.firstChild)
 
         $el.classList.add(types[config.type] || 'success')
-        $el.querySelector(textClass).innerHTML = config.text
+        $el.querySelector(`.${textClass}`).innerHTML = config.text
 
         openMessage()
+
+        if (config.closeOnClick) {
+            $el.addEventListener('click touchstart', () => closeMessage())
+        }
+
+        if (config.fadaAway && Number.isInteger(config.fadeAwayTimeout)) {
+            fadeAwayTimeout = setTimeout(() => {
+                closeMessage()
+            }, config.fadeAwayTimeout)
+        }
+    }
+
+    const createContainer = () => {
+
+        let $container = doc.createElement('div')
+        $container.setAttribute('id', config.containerId)
+        $container.setAttribute('class', containerClass)
+
+        doc.body.appendChild($container)
+
+        return $container
     }
 
     const openMessage = () => {
         $el.classList.add(config.activeClass)
         clearTimeout(fadeAwayTimeout)
 
-        if (config.alertBoxLoadedCB instanceof Function) {
-            config.alertBoxLoadedCB($el)
+        if (config.opened instanceof Function) {
+            config.opened($el)
         }
     }
 
@@ -49,28 +68,17 @@ const growl = opts => {
 
         clearTimeout(fadeAwayTimeout)
 
-        if (config.alertBoxLoadedCB instanceof Function) {
-            config.alertBoxLoadedCB($el)
+        if (config.closed instanceof Function) {
+            config.closed($el)
         }
     }
 
     bootstrap()
-
-    $el.querySelector(`.${closeClass}`).addEventListnener('click', () => {
-        closeMessage()
-    })
+    // $el.querySelector(`.${closeClass}`).addEventListnener('click', () => {
+    //     closeMessage()
+    // })
 
     return $el
-}
-
-const createContainer = () => {
-    let $container = doc.createElement('div')
-        .setAttribute('id', config.containerId)
-        .setAttribute('class', containerClass)
-
-    doc.body.appendChild($container)
-
-    return $container
 }
 
 /**

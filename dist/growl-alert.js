@@ -30,10 +30,10 @@ var animationEnd = (function () {
     var el = document.createElement('fake');
 
     var animations = {
-      animation: 'animationend',
-      OAnimation: 'oAnimationEnd',
-      MozAnimation: 'animationend',
-      WebkitAnimation: 'webkitAnimationEnd'
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'animationend',
+        WebkitAnimation: 'webkitAnimationEnd'
     };
 
     for (var a in animations) {
@@ -85,8 +85,8 @@ var defaults = {
     closeOnClick: false,
     fadeAway: false,
     fadeAwayTimeout: 5000,
-    alertBoxLoadedCB: void 0,
-    alertBoxOnCloseCB: void 0
+    opened: void 0,
+    closed: void 0
 };
 
 /**
@@ -96,42 +96,60 @@ var template = "\n    <div class=\"alert-message__close\"></div>\n    <div class
 
 var alertClass = 'alert-message';
 var textClass = 'alert-message__text';
-var closeClass = 'alert-message__close';
 var containerClass = 'container-alert-message';
 
 var growl = function (opts) {
-    
+    var doc = document;
     var config = extend(growl.defaults, opts);
 
     var $el, fadeAwayTimeout;
 
     var bootstrap = function () {
-        var doc = document;
-
         var $container = doc.querySelector(("#" + (config.containerId)));
 
         if (!$container) {
             $container = createContainer();
         }
 
-        $el = doc.createElement('div')
-            .setAttribute('class', alertClass)
-            .innerHTML = template;
+        $el = doc.createElement('div');
+        $el.setAttribute('class', alertClass);
+        $el.innerHTML = template;
 
         $container.insertBefore($el, $container.firstChild);
 
         $el.classList.add(types[config.type] || 'success');
-        $el.querySelector(textClass).innerHTML = config.text;
+        $el.querySelector(("." + textClass)).innerHTML = config.text;
 
         openMessage();
+
+        if (config.closeOnClick) {
+            $el.addEventListener('click touchstart', function () { return closeMessage(); });
+        }
+
+        if (config.fadaAway && Number.isInteger(config.fadeAwayTimeout)) {
+            fadeAwayTimeout = setTimeout(function () {
+                closeMessage();
+            }, config.fadeAwayTimeout);
+        }
+    };
+
+    var createContainer = function () {
+
+        var $container = doc.createElement('div');
+        $container.setAttribute('id', config.containerId);
+        $container.setAttribute('class', containerClass);
+
+        doc.body.appendChild($container);
+
+        return $container
     };
 
     var openMessage = function () {
         $el.classList.add(config.activeClass);
         clearTimeout(fadeAwayTimeout);
 
-        if (config.alertBoxLoadedCB instanceof Function) {
-            config.alertBoxLoadedCB($el);
+        if (config.opened instanceof Function) {
+            config.opened($el);
         }
     };
 
@@ -142,28 +160,17 @@ var growl = function (opts) {
 
         clearTimeout(fadeAwayTimeout);
 
-        if (config.alertBoxLoadedCB instanceof Function) {
-            config.alertBoxLoadedCB($el);
+        if (config.closed instanceof Function) {
+            config.closed($el);
         }
     };
 
     bootstrap();
-
-    $el.querySelector(("." + closeClass)).addEventListnener('click', function () {
-        closeMessage();
-    });
+    // $el.querySelector(`.${closeClass}`).addEventListnener('click', () => {
+    //     closeMessage()
+    // })
 
     return $el
-};
-
-var createContainer = function () {
-    var $container = doc.createElement('div')
-        .setAttribute('id', config.containerId)
-        .setAttribute('class', containerClass);
-
-    doc.body.appendChild($container);
-
-    return $container
 };
 
 /**

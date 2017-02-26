@@ -23,10 +23,10 @@ export const animationEnd = (() => {
     let el = document.createElement('fake')
 
     let animations = {
-      animation: 'animationend',
-      OAnimation: 'oAnimationEnd',
-      MozAnimation: 'animationend',
-      WebkitAnimation: 'webkitAnimationEnd'
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'animationend',
+        WebkitAnimation: 'webkitAnimationEnd'
     }
 
     for (let a in animations) {

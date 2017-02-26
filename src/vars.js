@@ -22,8 +22,8 @@ export const defaults = {
     closeOnClick: false,
     fadeAway: false,
     fadeAwayTimeout: 5000,
-    alertBoxLoadedCB: void 0,
-    alertBoxOnCloseCB: void 0
+    opened: void 0,
+    closed: void 0
 }
 
 /**
