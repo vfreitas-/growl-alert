@@ -1,10 +1,10 @@
 import {expect} from 'chai'
 import growl from './../src/index'
 
-const alertClass = 'alert-message'
 const textClass = 'alert-message__text'
 const closeClass = 'alert-message__close'
-const containerClass = 'container-alert-message'
+const growlClass = '.alert-message'
+const containerId = '#growl-container'
 
 describe('growl', () => {
 
@@ -25,7 +25,42 @@ describe('growl', () => {
 
     it('should create the growl container', () => {
         growl()
-        expect(document.getElementsByClassName(containerClass)).to.exist
+        console.log($(containerId))
+        expect($(containerId)[0]).to.exist
+    })
+
+    afterEach(() => {
+        if ($(containerId)[0]) {
+            document.body.removeChild($(containerId)[0])
+        }
+    })
+
+    it('should create a growl-alert message', () => {
+        growl()
+
+        expect(
+            $(growlClass).get()
+        ).to.have.lengthOf(1)
+    })
+
+    it('should push the alerts to the stack', () => {
+        growl()
+        growl()
+        growl()
+
+        expect(
+            $(growlClass).get()
+        ).to.have.lengthOf(3)
+    })
+
+    it('should show the given text or the default one', () => {
+        growl({
+            text: 'Testing'
+        })
+        console.log($(growlClass).get())
+        expect(
+            $(growlClass)[0].textContent
+        ).to.be.equal('Testing')
     })
 
 })

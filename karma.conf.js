@@ -4,12 +4,10 @@ const rollup = require('./rollup.config')
 
 rollup.format = 'iife'
 rollup.plugins[0] = rollupCoverage({
-    exclude: ['test/**/*.js'] 
+    exclude: ['test/**/*.js', '**/*.scss'] 
 })
 
 // Karma configuration
-// Generated on Wed Jan 18 2017 23:39:45 GMT-0200 (BRST)
-
 module.exports = function(config) {
     let tmp = {
 
@@ -23,7 +21,9 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'test/fixtures/*.html',
-            'test/index.js'
+            'test/index.js',
+
+            'node_modules/jbit/dist/jbit.js'
         ],
 
         // list of files to exclude
@@ -86,7 +86,7 @@ module.exports = function(config) {
         concurrency: Infinity
     }
 
-    if(process.env.TRAVIS){
+    if (process.env.TRAVIS){
         tmp.browsers = ['Chrome_travis_ci']
     }
 

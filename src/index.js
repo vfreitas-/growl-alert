@@ -14,7 +14,7 @@ const growl = opts => {
     let $el, fadeAwayTimeout
 
     const bootstrap = () => {
-        let $container = doc.querySelector(`#${config.containerId}`)
+        let $container = doc.getElementById(config.containerId)
 
         if (!$container) {
             $container = createContainer()
@@ -25,10 +25,10 @@ const growl = opts => {
         $el.innerHTML = template
 
         $container.insertBefore($el, $container.firstChild)
-
+        console.log(config.type)
         $el.classList.add(types[config.type] || 'success')
 
-        $el.querySelector(`.${textClass}`).innerHTML = config.text
+        $el.querySelector(`.${textClass}`).textContent = config.text
 
         openMessage()
 
@@ -95,5 +95,6 @@ growl.defaults = defaults
 Object.keys(types).forEach(type => {
     growl[type] = opts => growl(defineType(opts, type))
 })
+
 
 export default growl

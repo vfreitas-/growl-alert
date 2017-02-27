@@ -18,7 +18,7 @@ export const defaults = {
     closingClass: 'alert-message--closing',
     containerId: 'growl-container',
     type: 'success',
-    text: 'Simple notification',
+    text: 'Growl Alert',
     closeOnClick: false,
     fadeAway: false,
     fadeAwayTimeout: 5000,

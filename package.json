@@ -38,6 +38,7 @@
     "chai": "^3.5.0",
     "documentation": "^4.0.0-beta.18",
     "eslint": "^3.14.0",
+    "jbit": "^1.1.2",
     "karma": "^1.4.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",

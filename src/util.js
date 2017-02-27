@@ -2,18 +2,18 @@
 /**
  * 
  */
-export const extend = () => {
-    let i = 1, key
-
-    while (i < arguments.length) {
-        for (key in arguments[i]) {
-            if (arguments[i].hasOwnProperty(key)) {
-                arguments[0][key] = arguments[i][key]
+export const extend = obj => {
+    [].forEach.call(
+        [].slice.call(arguments, 1), source => {
+            if (source) {
+                for (let prop in source) {
+                    obj[prop] = source[prop];
+                }
             }
         }
-        i++
-    }
-    return arguments[0]
+    )
+
+    return obj
 }
 
 /**
