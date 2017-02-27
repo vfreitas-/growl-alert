@@ -1,9 +1,10 @@
 import {expect} from 'chai'
 import growl from './../src/index'
+import { types } from './../src/vars'
 
-const textClass = 'alert-message__text'
-const closeClass = 'alert-message__close'
-const growlClass = '.alert-message'
+const textClass = 'growl-alert__text'
+const closeClass = 'growl-alert__close'
+const growlClass = '.growl-alert'
 const containerId = '#growl-container'
 
 describe('growl', () => {
@@ -53,14 +54,32 @@ describe('growl', () => {
         ).to.have.lengthOf(3)
     })
 
-    it('should show the given text or the default one', () => {
+    it('should show the given text', () => {
         growl({
             text: 'Testing'
         })
-        console.log($(growlClass).get())
+
         expect(
-            $(growlClass)[0].textContent
+            $(growlClass)[0].textContent.trim()
         ).to.be.equal('Testing')
+    })
+
+    it('should change the message type', () => {
+        Object.keys(types).forEach(type => {
+            growl({
+                type
+            })
+
+            expect($(growlClass).first()[0].classList.contains(`growl-alert--${type}`))
+        })
+    })
+
+    it('should change the message type through the shortcut functions', () => {
+        Object.keys(types).forEach(type => {
+            growl[type]()
+
+            expect($(growlClass).first()[0].classList.contains(`growl-alert--${type}`))
+        })
     })
 
 })

@@ -1,11 +1,6 @@
 import './sass/index.scss'
 import { extend, animationEnd, defineType } from './util'
-import { types, defaults, template } from './vars'
-
-const alertClass = 'alert-message'
-const textClass = 'alert-message__text'
-const closeClass = 'alert-message__close'
-const containerClass = 'container-alert-message'
+import { types, classes, defaults, template } from './vars'
 
 const growl = opts => {
     const doc = document
@@ -21,14 +16,13 @@ const growl = opts => {
         }
 
         $el = doc.createElement('div')
-        $el.setAttribute('class', alertClass)
+        $el.setAttribute('class', classes.alertClass)
         $el.innerHTML = template
 
         $container.insertBefore($el, $container.firstChild)
-        console.log(config.type)
-        $el.classList.add(types[config.type] || 'success')
+        $el.classList.add(types[config.type] || types['success'])
 
-        $el.querySelector(`.${textClass}`).textContent = config.text
+        $el.querySelector(`.${classes.textClass}`).textContent = config.text
 
         openMessage()
 
@@ -42,7 +36,7 @@ const growl = opts => {
             }, config.fadeAwayTimeout)
         }
 
-        $el.querySelector(`.${closeClass}`).addEventListener('click', () => {
+        $el.querySelector(`.${classes.closeClass}`).addEventListener('click', () => {
             closeMessage()
         })
     }
@@ -51,7 +45,7 @@ const growl = opts => {
 
         let $container = doc.createElement('div')
         $container.setAttribute('id', config.containerId)
-        $container.setAttribute('class', containerClass)
+        $container.setAttribute('class', classes.containerClass)
 
         doc.body.appendChild($container)
 
@@ -59,7 +53,7 @@ const growl = opts => {
     }
 
     const openMessage = () => {
-        $el.classList.add(config.activeClass)
+        $el.classList.add(classes.activeClass)
         clearTimeout(fadeAwayTimeout)
 
         if (config.opened instanceof Function) {
@@ -68,7 +62,7 @@ const growl = opts => {
     }
 
     const closeMessage = () => {
-        $el.classList.add(config.closingClass)
+        $el.classList.add(classes.closingClass)
 
         $el.addEventListnener(animationEnd, () => $el.parentNode.removeChild($el))
 

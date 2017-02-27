@@ -3,19 +3,30 @@
  * 
  */
 export const types = {
-    success: 'alert-message--success',
-    info: 'alert-message--info',
-    warning: 'alert-message--warning',
-    error: 'alert-message--error'
+    success: 'growl-alert--success',
+    info: 'growl-alert--info',
+    warning: 'growl-alert--warning',
+    error: 'growl-alert--error'
+}
+
+/**
+ * 
+ */
+export const classes = {
+    alertClass: 'growl-alert',
+    activeClass: 'growl-alert--active',
+    closingClass: 'growl-alert--closing',
+    textClass: 'growl-alert__text',
+    closeClass: 'growl-alert__close',
+    containerClass: 'container-growl-alert',
 }
 
 /**
  * 
  */
 export const defaults = {
-    "class": 'alert-message',
-    activeClass: 'alert-message--active',
-    closingClass: 'alert-message--closing',
+    activeClass: 'growl-alert--active',
+    closingClass: 'growl-alert--closing',
     containerId: 'growl-container',
     type: 'success',
     text: 'Growl Alert',
@@ -30,7 +41,7 @@ export const defaults = {
  * 
  */
 export const template = `
-    <div class="alert-message__close"></div>
-    <div class="alert-message__icon"></div>
-    <p class="alert-message__text"></p>
+    <div class="growl-alert__close"></div>
+    <div class="growl-alert__icon"></div>
+    <p class="growl-alert__text"></p>
 `

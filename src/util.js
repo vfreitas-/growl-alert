@@ -2,16 +2,14 @@
 /**
  * 
  */
-export const extend = obj => {
-    [].forEach.call(
-        [].slice.call(arguments, 1), source => {
-            if (source) {
-                for (let prop in source) {
-                    obj[prop] = source[prop];
-                }
+export const extend = (obj, ...args) => {
+    args.forEach(source => {
+        if (source) {
+            for (let prop in source) {
+                obj[prop] = source[prop]
             }
         }
-    )
+    })
 
     return obj
 }
