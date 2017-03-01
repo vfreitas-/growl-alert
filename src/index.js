@@ -26,11 +26,11 @@ const growl = opts => {
 
         openMessage()
 
-        if (config.closeOnClick) {
-            $el.addEventListener('click touchstart', () => closeMessage())
+        if (!!config.closeOnClick) {
+            $el.addEventListener('click', () => closeMessage())
         }
 
-        if (config.fadaAway && !isNaN(config.fadeAwayTimeout)) {
+        if (config.fadeAway && !isNaN(config.fadeAwayTimeout)) {
             fadeAwayTimeout = setTimeout(() => {
                 closeMessage()
             }, config.fadeAwayTimeout)

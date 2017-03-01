@@ -18,7 +18,7 @@ export const classes = {
     closingClass: 'growl-alert--closing',
     textClass: 'growl-alert__text',
     closeClass: 'growl-alert__close',
-    containerClass: 'container-growl-alert',
+    containerClass: 'container-growl-alert'
 }
 
 /**

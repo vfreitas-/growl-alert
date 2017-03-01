@@ -1,13 +1,10 @@
 import {expect} from 'chai'
-import sinon, {spy} from 'sinon'
+import {spy} from 'sinon'
 import growl from './../src/index'
 import { types } from './../src/vars'
-import { animationEnd } from './../src/util'
 
-const textClass = '.growl-alert__text'
 const closeClass = '.growl-alert__close'
 const growlClass = '.growl-alert'
-const activeClass = 'growl-alert--active'
 const closingClass = 'growl-alert--closing'
 const containerId = '#growl-container'
 
@@ -120,5 +117,28 @@ describe('growl', () => {
         el.dispatchEvent(event)
 
         expect(cb.calledOnce).to.be.true
+    })
+
+    it('should start closing after 1000 ms', done => {
+        let el = growl({
+            fadeAway: true,
+            fadeAwayTimeout: 1000
+        })
+
+        setTimeout(() => {
+            expect(el.classList.contains(closingClass)).to.be.true
+            done()
+        }, 1001)
+        
+    })
+
+    it('should close if clicked anywhere on the alert div', () => {
+        let el = growl({
+            closeOnClick: true
+        })
+
+        el.click()
+
+        expect(el.classList.contains(closingClass)).to.be.true
     })
 })
