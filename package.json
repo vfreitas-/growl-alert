@@ -47,6 +47,7 @@
     "karma-jasmine": "^1.1.0",
     "karma-mocha": "^1.3.0",
     "karma-rollup-plugin": "^0.2.4",
+    "karma-sinon": "^1.0.5",
     "mocha": "^3.2.0",
     "postcss": "^5.2.15",
     "rimraf": "^2.6.1",
@@ -56,6 +57,7 @@
     "rollup-plugin-istanbul": "^1.1.0",
     "rollup-plugin-sass": "^0.4.9",
     "rollup-plugin-uglify": "^1.0.1",
-    "rollup-watch": "^2.5.0"
+    "rollup-watch": "^2.5.0",
+    "sinon": "^1.17.7"
   }
 }

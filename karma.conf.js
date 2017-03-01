@@ -14,9 +14,16 @@ module.exports = function(config) {
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
 
+        client: {
+            captureConsole: true,
+            mocha: {
+                bail: true
+            }
+        },
+
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha', 'chai', 'sinon'],
 
         // list of files / patterns to load in the browser
         files: [

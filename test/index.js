@@ -1,10 +1,14 @@
 import {expect} from 'chai'
+import sinon, {spy} from 'sinon'
 import growl from './../src/index'
 import { types } from './../src/vars'
+import { animationEnd } from './../src/util'
 
-const textClass = 'growl-alert__text'
-const closeClass = 'growl-alert__close'
+const textClass = '.growl-alert__text'
+const closeClass = '.growl-alert__close'
 const growlClass = '.growl-alert'
+const activeClass = 'growl-alert--active'
+const closingClass = 'growl-alert--closing'
 const containerId = '#growl-container'
 
 describe('growl', () => {
@@ -26,7 +30,6 @@ describe('growl', () => {
 
     it('should create the growl container', () => {
         growl()
-        console.log($(containerId))
         expect($(containerId)[0]).to.exist
     })
 
@@ -82,4 +85,40 @@ describe('growl', () => {
         })
     })
 
+    it('should close the alert', () => {
+        let el = growl()
+        $(el).find(closeClass)[0].click()
+
+        expect(el.classList.contains(closingClass)).to.be.true
+
+        const event = new CustomEvent('animationend')
+        el.dispatchEvent(event)
+
+        expect($(containerId).children().get()).to.have.lengthOf(0)
+    })
+
+    it('should call the opened callback', () => {
+        let cb = spy()
+
+        growl({
+            opened: cb
+        })
+
+        expect(cb.calledOnce).to.be.true
+    })
+
+    it('should call the closed callback', () => {
+        let cb = spy()
+
+        let el = growl({
+            closed: cb
+        })
+
+        $(el).find(closeClass)[0].click()
+
+        const event = new CustomEvent('animationend')
+        el.dispatchEvent(event)
+
+        expect(cb.calledOnce).to.be.true
+    })
 })

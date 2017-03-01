@@ -64,13 +64,15 @@ const growl = opts => {
     const closeMessage = () => {
         $el.classList.add(classes.closingClass)
 
-        $el.addEventListnener(animationEnd, () => $el.parentNode.removeChild($el))
+        $el.addEventListener(animationEnd, () => {
+            $el.parentNode.removeChild($el)
+
+            if (config.closed instanceof Function) {
+                config.closed($el)
+            }
+        })
 
         clearTimeout(fadeAwayTimeout)
-
-        if (config.closed instanceof Function) {
-            config.closed($el)
-        }
     }
 
     bootstrap()
