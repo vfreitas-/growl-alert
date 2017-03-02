@@ -25,11 +25,15 @@ let config = {
     ]
 }
 
+const prefixer = autoprefixer({
+    browsers: ['last 4 versions', 'IE 10']
+})
+
 if (env === 'production') {
     config.plugins.push(
         sass({
             output: `dist/${libName}.css`,
-            processor: css => postcss([autoprefixer]).process(css)
+            processor: css => postcss([prefixer]).process(css)
         })
     )
 } else if (env === 'minify') {
@@ -38,7 +42,7 @@ if (env === 'production') {
         uglify(),
         sass({
             output: `dist/${libName}.min.css`,
-            processor: css => postcss([autoprefixer]).process(css),
+            processor: css => postcss([prefixer]).process(css),
             options: {
                 outputStyle: 'compressed'
             }
