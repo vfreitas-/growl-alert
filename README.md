@@ -3,11 +3,12 @@
 <a href="https://travis-ci.org/vfreitas-/growl-alert">
     <img src="https://travis-ci.org/vfreitas-/growl-alert.svg?branch=master" alt="travis">
 </a>
-
+<a href="https://codecov.io/gh/vfreitas-/growl-alert">
+  <img src="https://codecov.io/gh/vfreitas-/growl-alert/branch/master/graph/badge.svg" alt="Codecov" />
+</a>
 <a href="https://www.npmjs.org/package/growl-alert">
   <img src="https://img.shields.io/npm/v/growl-alert.svg?style=flat" alt="npm">
 </a>
-
 <a href="https://david-dm.org/vfreitas-/growl-alert">
   <img src="https://david-dm.org/vfreitas-/growl-alert/status.svg" alt="dependencies Status">
 </a>
