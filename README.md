@@ -15,7 +15,7 @@
 
 A simple growl like notification system.
 
-![Example] (https://github.com/vfreitas-/growl-alert/blob/master/example.png)
+<img src="https://github.com/vfreitas-/growl-alert/blob/master/example.png" alt="Example">
 
 ## Table of Contents
 
