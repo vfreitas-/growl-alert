@@ -83,7 +83,7 @@ describe('growl', () => {
     })
 
     it('should close the alert', () => {
-        let el = growl()
+        let el = growl().$element
         $(el).find(closeClass)[0].click()
 
         expect(el.classList.contains(closingClass)).to.be.true
@@ -107,14 +107,14 @@ describe('growl', () => {
     it('should call the closed callback', () => {
         let cb = spy()
 
-        let el = growl({
+        let gr = growl({
             closed: cb
         })
 
-        $(el).find(closeClass)[0].click()
+        gr.close()
 
         const event = new CustomEvent('animationend')
-        el.dispatchEvent(event)
+        gr.$element.dispatchEvent(event)
 
         expect(cb.calledOnce).to.be.true
     })
@@ -123,7 +123,7 @@ describe('growl', () => {
         let el = growl({
             fadeAway: true,
             fadeAwayTimeout: 1000
-        })
+        }).$element
 
         setTimeout(() => {
             expect(el.classList.contains(closingClass)).to.be.true
@@ -135,7 +135,7 @@ describe('growl', () => {
     it('should close if clicked anywhere on the alert div', () => {
         let el = growl({
             closeOnClick: true
-        })
+        }).$element
 
         el.click()
 

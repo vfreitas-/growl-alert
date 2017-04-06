@@ -77,7 +77,10 @@ const growl = opts => {
 
     bootstrap()
 
-    return $el
+    return {
+        $element: $el,
+        close: closeMessage
+    }
 }
 
 /**
