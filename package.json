@@ -18,7 +18,7 @@
     "test": "karma start --single-run",
     "test:w": "karma start",
     "docs": "documentation readme src/index.js --section API -q",
-    "release": "npm run release && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+    "release": "npm run build:release && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "files": [
     "src",
