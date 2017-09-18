@@ -1,6 +1,6 @@
 {
   "name": "growl-alert",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple growl like notification system.",
   "jsnext:main": "src/index.js",
   "main": "dist/growl-alert.js",
